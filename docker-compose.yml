@@ -1,0 +1,122 @@
+version: '3.8'
+
+services:
+  # --- BASES DE DATOS (5 Contenedores) ---
+  db-canchas:
+    image: mysql:8.0
+    container_name: db-canchas
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: db_canchas
+    ports:
+      - "3306:3306"
+    networks:
+      - backend-net
+
+  db-equipamiento:
+    image: mysql:8.0
+    container_name: db-equipamiento
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: db_equipamiento
+    ports:
+      - "3307:3306"
+    networks:
+      - backend-net
+
+  db-usuarios:
+    image: mysql:8.0
+    container_name: db-usuarios
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: db_usuarios
+    networks:
+      - backend-net
+
+  db-reservas:
+    image: mysql:8.0
+    container_name: db-reservas
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: db_reservas
+    networks:
+      - backend-net
+
+  db-pagos:
+    image: mysql:8.0
+    container_name: db-pagos
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: db_pagos
+    networks:
+      - backend-net
+
+  # --- MICROSERVICIOS (5 Contenedores) ---
+  ms-canchas:
+    build: ./ms-canchas
+    container_name: ms-canchas
+    ports:
+      - "8081:8081"
+    networks:
+      - backend-net
+    depends_on:
+      - db-canchas
+
+  ms-equipamiento:
+    build: ./ms-equipamiento
+    container_name: ms-equipamiento
+    ports:
+      - "8082:8082"
+    networks:
+      - backend-net
+    depends_on:
+      - db-equipamiento
+
+  ms-usuarios:
+    build: ./ms-usuarios
+    container_name: ms-usuarios
+    ports:
+      - "8083:8083"
+    networks:
+      - backend-net
+    depends_on:
+      - db-usuarios
+
+  ms-reservas:
+    build: ./ms-reservas
+    container_name: ms-reservas
+    ports:
+      - "8084:8084"
+    networks:
+      - backend-net
+    depends_on:
+      - db-reservas
+
+  ms-pagos:
+    build: ./ms-pagos
+    container_name: ms-pagos
+    ports:
+      - "8085:8085"
+    networks:
+      - backend-net
+    depends_on:
+      - db-pagos
+
+  # --- API GATEWAY (1 Contenedor) ---
+  api-gateway:
+    build: ./api-gateway
+    container_name: api-gateway
+    ports:
+      - "8080:8080"
+    networks:
+      - backend-net
+    depends_on:
+      - ms-canchas
+      - ms-equipamiento
+      - ms-usuarios
+      - ms-reservas
+      - ms-pagos
+
+networks:
+  backend-net:
+    driver: bridge  
