@@ -20,7 +20,7 @@ public class ReservaService {
         log.info("Iniciando llamada Feign a ms-usuarios para buscar ID: {}", idUsuario);
         
         try {
-            UsuarioDTO usuario = usuarioClient.obtenerUsuarioPorId(idUsuario);
+            UsuarioDTO usuario = usuarioClient.obtenerUsuario(idUsuario);
             log.info("Comunicación Feign exitosa. Usuario recibido: {}", usuario.getNombre());
             return usuario;
             
