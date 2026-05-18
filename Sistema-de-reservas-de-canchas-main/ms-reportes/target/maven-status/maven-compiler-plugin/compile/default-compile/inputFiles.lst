@@ -1,0 +1,7 @@
+/home/ubuntu/Sistema-de-reservas-de-canchas/Sistema-de-reservas-de-canchas-main/ms-reportes/src/main/java/cl/duoc/msreportes/controller/ReporteController.java
+/home/ubuntu/Sistema-de-reservas-de-canchas/Sistema-de-reservas-de-canchas-main/ms-reportes/src/main/java/cl/duoc/msreportes/MsReportesApplication.java
+/home/ubuntu/Sistema-de-reservas-de-canchas/Sistema-de-reservas-de-canchas-main/ms-reportes/src/main/java/cl/duoc/msreportes/dto/ReporteDTO.java
+/home/ubuntu/Sistema-de-reservas-de-canchas/Sistema-de-reservas-de-canchas-main/ms-reportes/src/main/java/cl/duoc/msreportes/repository/ReporteRepository.java
+/home/ubuntu/Sistema-de-reservas-de-canchas/Sistema-de-reservas-de-canchas-main/ms-reportes/src/main/java/cl/duoc/msreportes/service/ReporteService.java
+/home/ubuntu/Sistema-de-reservas-de-canchas/Sistema-de-reservas-de-canchas-main/ms-reportes/src/main/java/cl/duoc/msreportes/service/impl/ReporteServiceImpl.java
+/home/ubuntu/Sistema-de-reservas-de-canchas/Sistema-de-reservas-de-canchas-main/ms-reportes/src/main/java/cl/duoc/msreportes/model/ReporteEntity.java

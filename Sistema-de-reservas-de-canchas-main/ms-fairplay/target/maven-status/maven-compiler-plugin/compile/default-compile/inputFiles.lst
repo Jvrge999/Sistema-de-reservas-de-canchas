@@ -1,0 +1,7 @@
+/home/ubuntu/Sistema-de-reservas-de-canchas/Sistema-de-reservas-de-canchas-main/ms-fairplay/src/main/java/cl/duoc/msfairplay/repository/SancionRepository.java
+/home/ubuntu/Sistema-de-reservas-de-canchas/Sistema-de-reservas-de-canchas-main/ms-fairplay/src/main/java/cl/duoc/msfairplay/dto/SancionDTO.java
+/home/ubuntu/Sistema-de-reservas-de-canchas/Sistema-de-reservas-de-canchas-main/ms-fairplay/src/main/java/cl/duoc/msfairplay/MsFairplayApplication.java
+/home/ubuntu/Sistema-de-reservas-de-canchas/Sistema-de-reservas-de-canchas-main/ms-fairplay/src/main/java/cl/duoc/msfairplay/controller/FairPlayController.java
+/home/ubuntu/Sistema-de-reservas-de-canchas/Sistema-de-reservas-de-canchas-main/ms-fairplay/src/main/java/cl/duoc/msfairplay/service/impl/SancionServiceImpl.java
+/home/ubuntu/Sistema-de-reservas-de-canchas/Sistema-de-reservas-de-canchas-main/ms-fairplay/src/main/java/cl/duoc/msfairplay/model/SancionEntity.java
+/home/ubuntu/Sistema-de-reservas-de-canchas/Sistema-de-reservas-de-canchas-main/ms-fairplay/src/main/java/cl/duoc/msfairplay/service/SancionService.java

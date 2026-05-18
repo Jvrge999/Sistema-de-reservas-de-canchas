@@ -1,0 +1,7 @@
+cl/duoc/msautenticacion/service/impl/AuthServiceImpl.class
+cl/duoc/msautenticacion/dto/AuthDTO.class
+cl/duoc/msautenticacion/controller/AuthController.class
+cl/duoc/msautenticacion/MsAutenticacionApplication.class
+cl/duoc/msautenticacion/service/AuthService.class
+cl/duoc/msautenticacion/repository/AuthRepository.class
+cl/duoc/msautenticacion/model/AuthEntity.class

@@ -1,0 +1,7 @@
+/home/ubuntu/Sistema-de-reservas-de-canchas/Sistema-de-reservas-de-canchas-main/ms-resenas/src/main/java/cl/duoc/msresenas/model/ResenaEntity.java
+/home/ubuntu/Sistema-de-reservas-de-canchas/Sistema-de-reservas-de-canchas-main/ms-resenas/src/main/java/cl/duoc/msresenas/MsResenasApplication.java
+/home/ubuntu/Sistema-de-reservas-de-canchas/Sistema-de-reservas-de-canchas-main/ms-resenas/src/main/java/cl/duoc/msresenas/controller/ResenaController.java
+/home/ubuntu/Sistema-de-reservas-de-canchas/Sistema-de-reservas-de-canchas-main/ms-resenas/src/main/java/cl/duoc/msresenas/repository/ResenaRepository.java
+/home/ubuntu/Sistema-de-reservas-de-canchas/Sistema-de-reservas-de-canchas-main/ms-resenas/src/main/java/cl/duoc/msresenas/service/impl/ResenaServiceImpl.java
+/home/ubuntu/Sistema-de-reservas-de-canchas/Sistema-de-reservas-de-canchas-main/ms-resenas/src/main/java/cl/duoc/msresenas/service/ResenaService.java
+/home/ubuntu/Sistema-de-reservas-de-canchas/Sistema-de-reservas-de-canchas-main/ms-resenas/src/main/java/cl/duoc/msresenas/dto/ResenaDTO.java

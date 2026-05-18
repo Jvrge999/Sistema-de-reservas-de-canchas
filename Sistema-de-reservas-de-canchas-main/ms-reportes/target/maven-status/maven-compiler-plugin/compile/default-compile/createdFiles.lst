@@ -1,0 +1,7 @@
+cl/duoc/msreportes/model/ReporteEntity.class
+cl/duoc/msreportes/service/impl/ReporteServiceImpl.class
+cl/duoc/msreportes/controller/ReporteController.class
+cl/duoc/msreportes/dto/ReporteDTO.class
+cl/duoc/msreportes/repository/ReporteRepository.class
+cl/duoc/msreportes/MsReportesApplication.class
+cl/duoc/msreportes/service/ReporteService.class

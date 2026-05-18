@@ -1,0 +1,7 @@
+/home/ubuntu/Sistema-de-reservas-de-canchas/Sistema-de-reservas-de-canchas-main/ms-autenticacion/src/main/java/cl/duoc/msautenticacion/controller/AuthController.java
+/home/ubuntu/Sistema-de-reservas-de-canchas/Sistema-de-reservas-de-canchas-main/ms-autenticacion/src/main/java/cl/duoc/msautenticacion/service/AuthService.java
+/home/ubuntu/Sistema-de-reservas-de-canchas/Sistema-de-reservas-de-canchas-main/ms-autenticacion/src/main/java/cl/duoc/msautenticacion/repository/AuthRepository.java
+/home/ubuntu/Sistema-de-reservas-de-canchas/Sistema-de-reservas-de-canchas-main/ms-autenticacion/src/main/java/cl/duoc/msautenticacion/service/impl/AuthServiceImpl.java
+/home/ubuntu/Sistema-de-reservas-de-canchas/Sistema-de-reservas-de-canchas-main/ms-autenticacion/src/main/java/cl/duoc/msautenticacion/model/AuthEntity.java
+/home/ubuntu/Sistema-de-reservas-de-canchas/Sistema-de-reservas-de-canchas-main/ms-autenticacion/src/main/java/cl/duoc/msautenticacion/MsAutenticacionApplication.java
+/home/ubuntu/Sistema-de-reservas-de-canchas/Sistema-de-reservas-de-canchas-main/ms-autenticacion/src/main/java/cl/duoc/msautenticacion/dto/AuthDTO.java

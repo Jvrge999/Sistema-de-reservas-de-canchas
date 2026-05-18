@@ -1,0 +1,7 @@
+cl/duoc/msresenas/service/impl/ResenaServiceImpl.class
+cl/duoc/msresenas/repository/ResenaRepository.class
+cl/duoc/msresenas/controller/ResenaController.class
+cl/duoc/msresenas/model/ResenaEntity.class
+cl/duoc/msresenas/dto/ResenaDTO.class
+cl/duoc/msresenas/MsResenasApplication.class
+cl/duoc/msresenas/service/ResenaService.class

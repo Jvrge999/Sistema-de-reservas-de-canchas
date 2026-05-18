@@ -1,0 +1,7 @@
+cl/duoc/msfairplay/dto/SancionDTO.class
+cl/duoc/msfairplay/controller/FairPlayController.class
+cl/duoc/msfairplay/service/impl/SancionServiceImpl.class
+cl/duoc/msfairplay/service/SancionService.class
+cl/duoc/msfairplay/repository/SancionRepository.class
+cl/duoc/msfairplay/MsFairplayApplication.class
+cl/duoc/msfairplay/model/SancionEntity.class
