@@ -1,0 +1,10 @@
+/home/ubuntu/Sistema-de-reservas-de-canchas/Sistema-de-reservas-de-canchas-main/ms-pagos/src/main/java/cl/duoc/mspagos/dto/ReservaDTO.java
+/home/ubuntu/Sistema-de-reservas-de-canchas/Sistema-de-reservas-de-canchas-main/ms-pagos/src/main/java/cl/duoc/mspagos/repository/PagoRepository.java
+/home/ubuntu/Sistema-de-reservas-de-canchas/Sistema-de-reservas-de-canchas-main/ms-pagos/src/main/java/cl/duoc/mspagos/MsPagosApplication.java
+/home/ubuntu/Sistema-de-reservas-de-canchas/Sistema-de-reservas-de-canchas-main/ms-pagos/src/main/java/cl/duoc/mspagos/client/ReservaClient.java
+/home/ubuntu/Sistema-de-reservas-de-canchas/Sistema-de-reservas-de-canchas-main/ms-pagos/src/main/java/cl/duoc/mspagos/dto/PagoDTO.java
+/home/ubuntu/Sistema-de-reservas-de-canchas/Sistema-de-reservas-de-canchas-main/ms-pagos/src/main/java/cl/duoc/mspagos/service/impl/PagoServiceImpl.java
+/home/ubuntu/Sistema-de-reservas-de-canchas/Sistema-de-reservas-de-canchas-main/ms-pagos/src/main/java/cl/duoc/mspagos/controller/PagoController.java
+/home/ubuntu/Sistema-de-reservas-de-canchas/Sistema-de-reservas-de-canchas-main/ms-pagos/src/main/java/cl/duoc/mspagos/exception/GlobalExceptionHandler.java
+/home/ubuntu/Sistema-de-reservas-de-canchas/Sistema-de-reservas-de-canchas-main/ms-pagos/src/main/java/cl/duoc/mspagos/model/PagoEntity.java
+/home/ubuntu/Sistema-de-reservas-de-canchas/Sistema-de-reservas-de-canchas-main/ms-pagos/src/main/java/cl/duoc/mspagos/service/PagoService.java

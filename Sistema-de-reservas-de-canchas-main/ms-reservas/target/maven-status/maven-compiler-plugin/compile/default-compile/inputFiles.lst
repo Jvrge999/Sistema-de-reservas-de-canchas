@@ -1,0 +1,6 @@
+/home/ubuntu/Sistema-de-reservas-de-canchas/Sistema-de-reservas-de-canchas-main/ms-reservas/src/main/java/cl/duoc/msreservas/model/ReservaEntity.java
+/home/ubuntu/Sistema-de-reservas-de-canchas/Sistema-de-reservas-de-canchas-main/ms-reservas/src/main/java/cl/duoc/msreservas/controller/ReservaController.java
+/home/ubuntu/Sistema-de-reservas-de-canchas/Sistema-de-reservas-de-canchas-main/ms-reservas/src/main/java/cl/duoc/msreservas/MsReservasApplication.java
+/home/ubuntu/Sistema-de-reservas-de-canchas/Sistema-de-reservas-de-canchas-main/ms-reservas/src/main/java/cl/duoc/msreservas/dto/UsuarioDTO.java
+/home/ubuntu/Sistema-de-reservas-de-canchas/Sistema-de-reservas-de-canchas-main/ms-reservas/src/main/java/cl/duoc/msreservas/client/UsuarioClient.java
+/home/ubuntu/Sistema-de-reservas-de-canchas/Sistema-de-reservas-de-canchas-main/ms-reservas/src/main/java/cl/duoc/msreservas/repository/ReservaRepository.java
