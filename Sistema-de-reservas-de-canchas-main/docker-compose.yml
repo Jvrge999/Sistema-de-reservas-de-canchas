@@ -1,0 +1,34 @@
+services:
+  # BASES DE DATOS
+  db-canchas: { image: "mysql:8.0", container_name: db-canchas, environment: {MYSQL_ROOT_PASSWORD: root, MYSQL_DATABASE: db_canchas}, ports: ["3306:3306"], networks: [backend-net] }
+  db-equipamiento: { image: "mysql:8.0", container_name: db-equipamiento, environment: {MYSQL_ROOT_PASSWORD: root, MYSQL_DATABASE: db_equipamiento}, ports: ["3307:3306"], networks: [backend-net] }
+  db-usuarios: { image: "mysql:8.0", container_name: db-usuarios, environment: {MYSQL_ROOT_PASSWORD: root, MYSQL_DATABASE: db_usuarios}, networks: [backend-net] }
+  db-reservas: { image: "mysql:8.0", container_name: db-reservas, environment: {MYSQL_ROOT_PASSWORD: root, MYSQL_DATABASE: db_reservas}, networks: [backend-net] }
+  db-pagos: { image: "mysql:8.0", container_name: db-pagos, environment: {MYSQL_ROOT_PASSWORD: root, MYSQL_DATABASE: db_pagos}, networks: [backend-net] }
+  db-autenticacion: { image: "mysql:8.0", container_name: db-autenticacion, environment: {MYSQL_ROOT_PASSWORD: root, MYSQL_DATABASE: db_autenticacion}, networks: [backend-net] }
+  db-notificaciones: { image: "mysql:8.0", container_name: db-notificaciones, environment: {MYSQL_ROOT_PASSWORD: root, MYSQL_DATABASE: db_notificaciones}, networks: [backend-net] }
+  db-fairplay: { image: "mysql:8.0", container_name: db-fairplay, environment: {MYSQL_ROOT_PASSWORD: root, MYSQL_DATABASE: db_fairplay}, networks: [backend-net] }
+  db-resenas: { image: "mysql:8.0", container_name: db-resenas, environment: {MYSQL_ROOT_PASSWORD: root, MYSQL_DATABASE: db_resenas}, networks: [backend-net] }
+  db-reportes: { image: "mysql:8.0", container_name: db-reportes, environment: {MYSQL_ROOT_PASSWORD: root, MYSQL_DATABASE: db_reportes}, networks: [backend-net] }
+
+  # MICROSERVICIOS
+  ms-canchas: { build: ./ms-canchas, container_name: ms-canchas, ports: ["8081:8081"], networks: [backend-net], depends_on: [db-canchas] }
+  ms-equipamiento: { build: ./ms-equipamiento, container_name: ms-equipamiento, ports: ["8082:8082"], networks: [backend-net], depends_on: [db-equipamiento] }
+  ms-usuarios: { build: ./ms-usuarios, container_name: ms-usuarios, ports: ["8083:8083"], networks: [backend-net], depends_on: [db-usuarios] }
+  ms-reservas: { build: ./ms-reservas, container_name: ms-reservas, ports: ["8084:8084"], networks: [backend-net], depends_on: [db-reservas] }
+  ms-pagos: { build: ./ms-pagos, container_name: ms-pagos, ports: ["8085:8085"], networks: [backend-net], depends_on: [db-pagos] }
+  ms-autenticacion: { build: ./ms-autenticacion, container_name: ms-autenticacion, ports: ["8086:8086"], networks: [backend-net], depends_on: [db-autenticacion] }
+  ms-notificaciones: { build: ./ms-notificaciones, container_name: ms-notificaciones, ports: ["8087:8087"], networks: [backend-net], depends_on: [db-notificaciones] }
+  ms-fairplay: { build: ./ms-fairplay, container_name: ms-fairplay, ports: ["8088:8088"], networks: [backend-net], depends_on: [db-fairplay] }
+  ms-resenas: { build: ./ms-resenas, container_name: ms-resenas, ports: ["8089:8089"], networks: [backend-net], depends_on: [db-resenas] }
+  ms-reportes: { build: ./ms-reportes, container_name: ms-reportes, ports: ["8090:8090"], networks: [backend-net], depends_on: [db-reportes] }
+
+  api-gateway:
+    build: ./api-gateway
+    container_name: api-gateway
+    ports: ["8080:8080"]
+    networks: [backend-net]
+    depends_on: [ms-canchas, ms-equipamiento, ms-usuarios, ms-reservas, ms-pagos, ms-autenticacion, ms-notificaciones, ms-fairplay, ms-resenas, ms-reportes]
+
+networks:
+  backend-net: { driver: bridge }

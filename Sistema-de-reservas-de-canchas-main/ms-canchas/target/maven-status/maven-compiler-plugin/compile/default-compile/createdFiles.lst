@@ -1,0 +1,4 @@
+cl/duoc/mscanchas/model/CanchaEntity.class
+cl/duoc/mscanchas/MsCanchasApplication.class
+cl/duoc/mscanchas/repository/CanchaRepository.class
+cl/duoc/mscanchas/controller/CanchaController.class

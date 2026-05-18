@@ -1,0 +1,4 @@
+/home/ubuntu/Sistema-de-reservas-de-canchas/Sistema-de-reservas-de-canchas-main/ms-canchas/src/main/java/cl/duoc/mscanchas/model/CanchaEntity.java
+/home/ubuntu/Sistema-de-reservas-de-canchas/Sistema-de-reservas-de-canchas-main/ms-canchas/src/main/java/cl/duoc/mscanchas/repository/CanchaRepository.java
+/home/ubuntu/Sistema-de-reservas-de-canchas/Sistema-de-reservas-de-canchas-main/ms-canchas/src/main/java/cl/duoc/mscanchas/MsCanchasApplication.java
+/home/ubuntu/Sistema-de-reservas-de-canchas/Sistema-de-reservas-de-canchas-main/ms-canchas/src/main/java/cl/duoc/mscanchas/controller/CanchaController.java

@@ -1,0 +1,7 @@
+/home/ubuntu/Sistema-de-reservas-de-canchas/Sistema-de-reservas-de-canchas-main/ms-equipamiento/src/main/java/cl/duoc/msequipamiento/dto/EquipamientoDTO.java
+/home/ubuntu/Sistema-de-reservas-de-canchas/Sistema-de-reservas-de-canchas-main/ms-equipamiento/src/main/java/cl/duoc/msequipamiento/model/EquipamientoEntity.java
+/home/ubuntu/Sistema-de-reservas-de-canchas/Sistema-de-reservas-de-canchas-main/ms-equipamiento/src/main/java/cl/duoc/msequipamiento/MsEquipamientoApplication.java
+/home/ubuntu/Sistema-de-reservas-de-canchas/Sistema-de-reservas-de-canchas-main/ms-equipamiento/src/main/java/cl/duoc/msequipamiento/service/EquipamientoService.java
+/home/ubuntu/Sistema-de-reservas-de-canchas/Sistema-de-reservas-de-canchas-main/ms-equipamiento/src/main/java/cl/duoc/msequipamiento/service/impl/EquipamientoServiceImpl.java
+/home/ubuntu/Sistema-de-reservas-de-canchas/Sistema-de-reservas-de-canchas-main/ms-equipamiento/src/main/java/cl/duoc/msequipamiento/controller/EquipamientoController.java
+/home/ubuntu/Sistema-de-reservas-de-canchas/Sistema-de-reservas-de-canchas-main/ms-equipamiento/src/main/java/cl/duoc/msequipamiento/repository/EquipamientoRepository.java
