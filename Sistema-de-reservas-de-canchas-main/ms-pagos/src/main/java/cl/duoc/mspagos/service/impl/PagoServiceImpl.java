@@ -24,7 +24,7 @@ public class PagoServiceImpl implements PagoService {
 
     @Override
     public PagoDTO registrarPago(PagoDTO dto) {
-        // Lógica de validación compleja:
+        
         ReservaDTO reserva = reservaClient.obtenerReserva(dto.getIdReserva());
         if (reserva == null) {
             throw new RuntimeException("No se puede procesar el pago: La reserva no existe.");
