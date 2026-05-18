@@ -1,0 +1,48 @@
+server:
+  port: 8080
+spring:
+  application:
+    name: api-gateway
+  cloud:
+    gateway:
+      routes:
+        - id: ms-canchas
+          uri: http://ms-canchas:8081
+          predicates:
+            - Path=/canchas/**
+        - id: ms-equipamiento
+          uri: http://ms-equipamiento:8082
+          predicates:
+            - Path=/equipamiento/**
+        - id: ms-usuarios
+          uri: http://ms-usuarios:8083
+          predicates:
+            - Path=/usuarios/**
+        - id: ms-reservas
+          uri: http://ms-reservas:8084
+          predicates:
+            - Path=/reservas/**
+        - id: ms-pagos
+          uri: http://ms-pagos:8085
+          predicates:
+            - Path=/pagos/**
+        - id: ms-autenticacion
+          uri: http://ms-autenticacion:8086
+          predicates:
+            - Path=/auth/**
+        - id: ms-notificaciones
+          uri: http://ms-notificaciones:8087
+          predicates:
+            - Path=/notificaciones/**
+        - id: ms-fairplay
+          uri: http://ms-fairplay:8088
+          predicates:
+            - Path=/fairplay/**
+        - id: ms-resenas
+          uri: http://ms-resenas:8089
+          predicates:
+            - Path=/resenas/**
+        - id: ms-reportes
+          uri: http://ms-reportes:8090
+          predicates:
+            - Path=/reportes/**
