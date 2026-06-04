@@ -8,14 +8,19 @@ import cl.duoc.mspagos.repository.PagoRepository;
 import cl.duoc.mspagos.service.PagoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
 public class PagoServiceImpl implements PagoService {
 
-    @Autowired private PagoRepository repo;
-    @Autowired private ReservaClient reservaClient;
+    @Autowired 
+    private PagoRepository repo;
+    
+    @Autowired 
+    private ReservaClient reservaClient;
 
     @Override
     public List<PagoDTO> listarTodos() {
@@ -24,7 +29,7 @@ public class PagoServiceImpl implements PagoService {
 
     @Override
     public PagoDTO registrarPago(PagoDTO dto) {
-        
+        // Validación con Feign Client que ya tenías (¡Excelente práctica!)
         ReservaDTO reserva = reservaClient.obtenerReserva(dto.getIdReserva());
         if (reserva == null) {
             throw new RuntimeException("No se puede procesar el pago: La reserva no existe.");
@@ -37,6 +42,27 @@ public class PagoServiceImpl implements PagoService {
         entity.setEstado("COMPLETADO");
         entity = repo.save(entity);
         return convertirADTO(entity);
+    }
+
+    @Override
+    public PagoDTO actualizar(Long id, PagoDTO dto) {
+        Optional<PagoEntity> existente = repo.findById(id);
+        
+        if (existente.isPresent()) {
+            PagoEntity entity = existente.get();
+            entity.setIdReserva(dto.getIdReserva());
+            entity.setMonto(dto.getMonto());
+            entity.setMetodoPago(dto.getMetodoPago());
+            entity.setEstado(dto.getEstado());
+            entity = repo.save(entity);
+            return convertirADTO(entity);
+        }
+        throw new RuntimeException("Pago no encontrado");
+    }
+
+    @Override
+    public void borrar(Long id) {
+        repo.deleteById(id);
     }
 
     private PagoDTO convertirADTO(PagoEntity entity) {

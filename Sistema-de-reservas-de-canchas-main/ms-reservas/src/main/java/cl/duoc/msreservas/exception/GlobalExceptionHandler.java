@@ -1,4 +1,4 @@
-package cl.duoc.mspagos.exception;
+package cl.duoc.msreservas.exception;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

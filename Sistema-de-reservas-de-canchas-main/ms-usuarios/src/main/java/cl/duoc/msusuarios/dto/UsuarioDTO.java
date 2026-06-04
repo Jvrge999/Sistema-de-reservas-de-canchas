@@ -1,11 +1,19 @@
-package cl.duoc.msreservas.dto;
+package cl.duoc.msusuarios.dto;
+
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
 
 public class UsuarioDTO {
+
     private Long id;
+
+    @NotBlank(message = "El nombre es obligatorio")
     private String nombre;
+
+    @NotBlank(message = "El email es obligatorio")
+    @Email(message = "Debe ser un formato de correo valido")
     private String email;
 
-    // Getters y Setters
     public Long getId() { return id; }
     public void setId(Long id) { this.id = id; }
     public String getNombre() { return nombre; }
