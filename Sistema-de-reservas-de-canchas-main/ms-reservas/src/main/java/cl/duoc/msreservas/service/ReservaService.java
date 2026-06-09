@@ -19,6 +19,12 @@ public class ReservaService {
         return repo.findAll();
     }
 
+    // --- ESTE ES EL MÉTODO QUE FALTABA ---
+    public ReservaEntity obtenerPorId(Long id) {
+        return repo.findById(id)
+                .orElseThrow(() -> new RuntimeException("Reserva no encontrada"));
+    }
+
     public ReservaEntity guardar(ReservaDTO dto) {
         ReservaEntity entity = new ReservaEntity();
         entity.setIdCancha(dto.getIdCancha());

@@ -23,9 +23,14 @@ public class ReservaController {
         return new ResponseEntity<>(service.listarTodas(), HttpStatus.OK);
     }
 
+    // --- ESTE ES EL NUEVO MÉTODO QUE FALTABA ---
+    @GetMapping("/{id}")
+    public ResponseEntity<ReservaEntity> obtenerPorId(@PathVariable Long id) {
+        return new ResponseEntity<>(service.obtenerPorId(id), HttpStatus.OK);
+    }
+
     @PostMapping
     public ResponseEntity<ReservaEntity> guardar(@Valid @RequestBody ReservaDTO dto) {
-        // La validacion de Feign Client puede ir dentro del Service o ser llamada desde aqui
         return new ResponseEntity<>(service.guardar(dto), HttpStatus.CREATED);
     }
 
