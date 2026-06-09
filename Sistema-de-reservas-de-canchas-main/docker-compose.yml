@@ -28,7 +28,7 @@ services:
     container_name: api-gateway
     ports: ["8080:8080"]
     networks: [backend-net]
-    depends_on: [ms-canchas, ms-equipamiento, ms-usuarios, ms-reservas, ms-pagos, ms-autenticacion, ms-notificaciones, ms-fairplay, ms-resenas, ms-reportes]
+    # depends_on: [ms-canchas, ms-equipamiento, ms-usuarios, ms-reservas, ms-pagos, ms-autenticacion, ms-notificaciones, ms-fairplay, ms-resenas, ms-reportes]
 
 networks:
   backend-net: { driver: bridge }
