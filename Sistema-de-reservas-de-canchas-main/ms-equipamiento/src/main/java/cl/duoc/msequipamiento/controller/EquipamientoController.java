@@ -23,6 +23,12 @@ public class EquipamientoController {
         return service.guardar(dto);
     }
 
+    @PutMapping("/{id}")
+    public EquipamientoDTO actualizar(@PathVariable Long id, @RequestBody EquipamientoDTO dto) {
+        dto.setId(id);
+        return service.guardar(dto);
+    }
+
     @DeleteMapping("/{id}")
     public void eliminar(@PathVariable Long id) {
         service.eliminar(id);
