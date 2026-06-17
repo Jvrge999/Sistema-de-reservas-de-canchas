@@ -1,4 +1,8 @@
-cl/duoc/msusuarios/repository/UsuarioRepository.class
-cl/duoc/msusuarios/MsUsuariosApplication.class
-cl/duoc/msusuarios/model/UsuarioEntity.class
-cl/duoc/msusuarios/controller/UsuarioController.class
+cl\duoc\msusuarios\model\UsuarioEntity.class
+cl\duoc\msusuarios\config\SwaggerConfig.class
+cl\duoc\msusuarios\MsUsuariosApplication.class
+cl\duoc\msusuarios\exception\GlobalExceptionHandler.class
+cl\duoc\msusuarios\dto\UsuarioDTO.class
+cl\duoc\msusuarios\repository\UsuarioRepository.class
+cl\duoc\msusuarios\service\UsuarioService.class
+cl\duoc\msusuarios\controller\UsuarioController.class
