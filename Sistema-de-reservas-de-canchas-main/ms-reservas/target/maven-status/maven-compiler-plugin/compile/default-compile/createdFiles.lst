@@ -1,6 +1,0 @@
-cl/duoc/msreservas/model/ReservaEntity.class
-cl/duoc/msreservas/MsReservasApplication.class
-cl/duoc/msreservas/controller/ReservaController.class
-cl/duoc/msreservas/repository/ReservaRepository.class
-cl/duoc/msreservas/client/UsuarioClient.class
-cl/duoc/msreservas/dto/UsuarioDTO.class
