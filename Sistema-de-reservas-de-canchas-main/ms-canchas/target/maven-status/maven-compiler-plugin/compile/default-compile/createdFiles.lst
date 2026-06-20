@@ -1,4 +1,8 @@
-cl/duoc/mscanchas/model/CanchaEntity.class
-cl/duoc/mscanchas/MsCanchasApplication.class
-cl/duoc/mscanchas/repository/CanchaRepository.class
-cl/duoc/mscanchas/controller/CanchaController.class
+cl\duoc\mscanchas\model\CanchaEntity.class
+cl\duoc\mscanchas\MsCanchasApplication.class
+cl\duoc\mscanchas\service\CanchaService.class
+cl\duoc\mscanchas\config\SwaggerConfig.class
+cl\duoc\mscanchas\dto\CanchaDTO.class
+cl\duoc\mscanchas\controller\CanchaController.class
+cl\duoc\mscanchas\repository\CanchaRepository.class
+cl\duoc\mscanchas\exception\GlobalExceptionHandler.class
