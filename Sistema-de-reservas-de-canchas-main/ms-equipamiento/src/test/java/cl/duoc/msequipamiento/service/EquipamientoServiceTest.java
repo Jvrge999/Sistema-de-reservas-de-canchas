@@ -4,13 +4,13 @@ import cl.duoc.msequipamiento.dto.EquipamientoDTO;
 import cl.duoc.msequipamiento.model.EquipamientoEntity;
 import cl.duoc.msequipamiento.repository.EquipamientoRepository;
 import cl.duoc.msequipamiento.service.impl.EquipamientoServiceImpl;
-import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.util.Arrays;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -23,52 +23,62 @@ class EquipamientoServiceTest {
     @Mock
     private EquipamientoRepository repo;
 
+    // Aquí inyectamos el Impl para poder probar la lógica interna
     @InjectMocks
-    private EquipamientoServiceImpl service;
+    private EquipamientoServiceImpl service; 
 
     @Test
-    @DisplayName("Debe retornar lista de equipamiento y convertirla a DTO")
-    void debeListarTodos() {
-        // Given (Arrange)
+    void testListarTodos() {
         EquipamientoEntity entity = new EquipamientoEntity();
         entity.setId(1L);
-        entity.setNombre("Malla");
+        entity.setNombre("Raqueta");
+        entity.setTipo("Tenis");
+        entity.setPrecioArriendo(5000.0);
         entity.setDisponible(true);
 
-        when(repo.findAll()).thenReturn(List.of(entity));
+        when(repo.findAll()).thenReturn(Arrays.asList(entity));
 
-        // When (Act)
+        // El servicio mapea la entidad a DTO internamente
         List<EquipamientoDTO> resultado = service.listarTodos();
 
-        // Then (Assert)
         assertNotNull(resultado);
         assertEquals(1, resultado.size());
-        assertEquals("Malla", resultado.get(0).getNombre());
-        assertTrue(resultado.get(0).getDisponible());
+        assertEquals("Raqueta", resultado.get(0).getNombre());
         verify(repo, times(1)).findAll();
     }
 
     @Test
-    @DisplayName("Debe guardar un equipamiento nuevo y retornar su DTO")
-    void debeGuardarEquipamiento() {
-        // Given (Arrange)
-        EquipamientoDTO inputDto = new EquipamientoDTO();
-        inputDto.setNombre("Conos");
-        inputDto.setPrecioArriendo(500.0);
+    void testGuardar() {
+        EquipamientoDTO dtoEntrada = new EquipamientoDTO();
+        dtoEntrada.setNombre("Balon");
+        dtoEntrada.setTipo("Futbol");
+        dtoEntrada.setPrecioArriendo(3000.0);
+        dtoEntrada.setDisponible(true);
 
-        EquipamientoEntity savedEntity = new EquipamientoEntity();
-        savedEntity.setId(5L);
-        savedEntity.setNombre("Conos");
-        savedEntity.setPrecioArriendo(500.0);
+        EquipamientoEntity entityGuardada = new EquipamientoEntity();
+        entityGuardada.setId(1L);
+        entityGuardada.setNombre("Balon");
+        entityGuardada.setTipo("Futbol");
+        entityGuardada.setPrecioArriendo(3000.0);
+        entityGuardada.setDisponible(true);
 
-        when(repo.save(any(EquipamientoEntity.class))).thenReturn(savedEntity);
+        when(repo.save(any(EquipamientoEntity.class))).thenReturn(entityGuardada);
 
-        // When (Act)
-        EquipamientoDTO resultado = service.guardar(inputDto);
+        EquipamientoDTO resultado = service.guardar(dtoEntrada);
 
-        // Then (Assert)
         assertNotNull(resultado);
-        assertEquals(5L, resultado.getId());
-        assertEquals("Conos", resultado.getNombre());
+        assertEquals(1L, resultado.getId());
+        assertEquals("Balon", resultado.getNombre());
+        verify(repo, times(1)).save(any(EquipamientoEntity.class));
+    }
+
+    @Test
+    void testEliminar() {
+        Long id = 1L;
+        doNothing().when(repo).deleteById(id);
+
+        service.eliminar(id);
+
+        verify(repo, times(1)).deleteById(id);
     }
 }
