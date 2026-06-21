@@ -6,3 +6,4 @@ cl\duoc\msusuarios\dto\UsuarioDTO.class
 cl\duoc\msusuarios\repository\UsuarioRepository.class
 cl\duoc\msusuarios\service\UsuarioService.class
 cl\duoc\msusuarios\controller\UsuarioController.class
+cl\duoc\msusuarios\service\impl\UsuarioServiceImpl.class

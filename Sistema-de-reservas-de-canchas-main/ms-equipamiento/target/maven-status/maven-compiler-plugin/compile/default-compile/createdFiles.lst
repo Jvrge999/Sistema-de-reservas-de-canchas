@@ -3,6 +3,7 @@ cl\duoc\msequipamiento\service\impl\EquipamientoServiceImpl.class
 cl\duoc\msequipamiento\MsEquipamientoApplication.class
 cl\duoc\msequipamiento\service\EquipamientoService.class
 cl\duoc\msequipamiento\dto\EquipamientoDTO.class
+cl\duoc\msequipamiento\exception\GlobalExceptionHandler.class
 cl\duoc\msequipamiento\config\SwaggerConfig.class
 cl\duoc\msequipamiento\controller\EquipamientoController.class
 cl\duoc\msequipamiento\model\EquipamientoEntity.class

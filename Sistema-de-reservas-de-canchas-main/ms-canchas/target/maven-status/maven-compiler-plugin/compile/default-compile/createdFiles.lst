@@ -6,3 +6,4 @@ cl\duoc\mscanchas\dto\CanchaDTO.class
 cl\duoc\mscanchas\controller\CanchaController.class
 cl\duoc\mscanchas\repository\CanchaRepository.class
 cl\duoc\mscanchas\exception\GlobalExceptionHandler.class
+cl\duoc\mscanchas\service\impl\CanchaServiceImpl.class

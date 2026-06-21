@@ -1,1 +1,6 @@
+cl\duoc\msusuarios\repository\UsuarioRepositoryTest.class
+cl\duoc\msusuarios\service\UsuarioServiceTest.class
+cl\duoc\msusuarios\controller\UsuarioControllerTest.class
+cl\duoc\msusuarios\dto\UsuarioDTOTest.class
+cl\duoc\msusuarios\model\UsuarioEntityTest.class
 cl\duoc\msusuarios\MsUsuariosApplicationTests.class
