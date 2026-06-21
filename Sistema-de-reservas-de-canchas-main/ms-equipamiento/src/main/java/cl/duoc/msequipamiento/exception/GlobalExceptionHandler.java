@@ -1,4 +1,4 @@
-package cl.duoc.mspagos.exception;
+package cl.duoc.msequipamiento.exception;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
