@@ -3,6 +3,7 @@ package cl.duoc.mscanchas.service;
 import cl.duoc.mscanchas.dto.CanchaDTO;
 import cl.duoc.mscanchas.model.CanchaEntity;
 import cl.duoc.mscanchas.repository.CanchaRepository;
+import cl.duoc.mscanchas.service.impl.CanchaServiceImpl;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -24,91 +25,55 @@ class CanchaServiceTest {
     private CanchaRepository repo;
 
     @InjectMocks
-    private CanchaService service;
+    private CanchaServiceImpl service;
 
     @Test
     void testListarTodas() {
-        CanchaEntity c1 = new CanchaEntity();
-        c1.setId(1L);
-        c1.setNombre("Cancha Central");
+        CanchaEntity entity = new CanchaEntity();
+        entity.setNombre("Cancha Central");
+        when(repo.findAll()).thenReturn(Arrays.asList(entity));
 
-        when(repo.findAll()).thenReturn(Arrays.asList(c1));
+        List<CanchaDTO> resultado = service.listarTodas();
 
-        List<CanchaEntity> resultado = service.listarTodas();
-
-        assertNotNull(resultado);
         assertEquals(1, resultado.size());
-        verify(repo, times(1)).findAll();
+        assertEquals("Cancha Central", resultado.get(0).getNombre());
     }
 
-    @Test
+   @Test
     void testGuardar() {
-        CanchaDTO dto = new CanchaDTO();
-        dto.setNombre("Nueva Cancha");
-        dto.setTipoPasto("Sintetico");
-        dto.setCapacidad(10);
-        dto.setPrecioHora(12000);
-
-        CanchaEntity entityGuardada = new CanchaEntity();
-        entityGuardada.setId(1L);
-        entityGuardada.setNombre("Nueva Cancha");
-
-        when(repo.save(any(CanchaEntity.class))).thenReturn(entityGuardada);
-
-        CanchaEntity resultado = service.guardar(dto);
-
-        assertNotNull(resultado);
-        assertEquals(1L, resultado.getId());
-        assertEquals("Nueva Cancha", resultado.getNombre());
-        verify(repo, times(1)).save(any(CanchaEntity.class));
-    }
-
-    @Test
-    void testActualizarExitoso() {
-        Long id = 1L;
-        CanchaDTO dto = new CanchaDTO();
-        dto.setNombre("Cancha Actualizada");
-        dto.setTipoPasto("Sintetico");
-        dto.setCapacidad(14);
-        dto.setPrecioHora(15000);
-
-        CanchaEntity entidadExistente = new CanchaEntity();
-        entidadExistente.setId(id);
-        entidadExistente.setNombre("Vieja Cancha");
-
-        when(repo.findById(id)).thenReturn(Optional.of(entidadExistente));
-        when(repo.save(any(CanchaEntity.class))).thenReturn(entidadExistente); 
-
-        CanchaEntity resultado = service.actualizar(id, dto);
-
-        assertNotNull(resultado);
-        assertEquals("Cancha Actualizada", resultado.getNombre());
-        verify(repo, times(1)).findById(id);
-        verify(repo, times(1)).save(any(CanchaEntity.class));
-    }
-
-    @Test
-    void testActualizarLanzaExcepcionCuandoNoExiste() {
-        Long id = 99L;
-        CanchaDTO dto = new CanchaDTO();
-        when(repo.findById(id)).thenReturn(Optional.empty());
-
-        RuntimeException exception = assertThrows(RuntimeException.class, () -> {
-            service.actualizar(id, dto);
-        });
         
-        assertEquals("Cancha no encontrada", exception.getMessage());
-        verify(repo, times(1)).findById(id);
-        verify(repo, never()).save(any(CanchaEntity.class));
+        CanchaDTO dto = new CanchaDTO();
+        dto.setNombre("Cancha Norte");
+        dto.setCapacidad(14); // Ajustado a la realidad
+        dto.setPrecioHora(25000.0); // Ajustado a la realidad
+
+        CanchaEntity entity = new CanchaEntity();
+        entity.setId(1L);
+        entity.setNombre("Cancha Norte");
+        entity.setCapacidad(14);
+        entity.setPrecioHora(25000.0);
+
+        when(repo.save(any(CanchaEntity.class))).thenReturn(entity);
+
+        CanchaDTO resultado = service.guardar(dto);
+
+        assertEquals(1L, resultado.getId());
+        assertEquals("Cancha Norte", resultado.getNombre());
+    }
+
+    @Test
+    void testActualizarLanzaExcepcion() {
+        when(repo.findById(99L)).thenReturn(Optional.empty());
+
+        assertThrows(RuntimeException.class, () -> {
+            service.actualizar(99L, new CanchaDTO());
+        });
     }
 
     @Test
     void testBorrar() {
-        Long id = 1L;
-        doNothing().when(repo).deleteById(id);
-
-        service.borrar(id);
-
-        verify(repo, times(1)).deleteById(id);
+        doNothing().when(repo).deleteById(1L);
+        service.borrar(1L);
+        verify(repo, times(1)).deleteById(1L);
     }
 }

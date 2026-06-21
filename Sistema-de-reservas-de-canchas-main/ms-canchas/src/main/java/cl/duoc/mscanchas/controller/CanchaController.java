@@ -1,7 +1,6 @@
 package cl.duoc.mscanchas.controller;
 
 import cl.duoc.mscanchas.dto.CanchaDTO;
-import cl.duoc.mscanchas.model.CanchaEntity;
 import cl.duoc.mscanchas.service.CanchaService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -26,7 +25,7 @@ public class CanchaController {
     @Operation(summary = "Listar todas las canchas", description = "Retorna la lista completa de canchas registradas.")
     @ApiResponse(responseCode = "200", description = "Lista obtenida exitosamente")
     @GetMapping
-    public ResponseEntity<List<CanchaEntity>> listar() {
+    public ResponseEntity<List<CanchaDTO>> listar() {
         return new ResponseEntity<>(service.listarTodas(), HttpStatus.OK);
     }
 
@@ -36,7 +35,7 @@ public class CanchaController {
         @ApiResponse(responseCode = "400", description = "Datos de entrada inválidos")
     })
     @PostMapping
-    public ResponseEntity<CanchaEntity> guardar(@Valid @RequestBody CanchaDTO dto) {
+    public ResponseEntity<CanchaDTO> guardar(@Valid @RequestBody CanchaDTO dto) {
         return new ResponseEntity<>(service.guardar(dto), HttpStatus.CREATED);
     }
 
@@ -46,7 +45,7 @@ public class CanchaController {
         @ApiResponse(responseCode = "404", description = "Cancha no encontrada")
     })
     @PutMapping("/{id}")
-    public ResponseEntity<CanchaEntity> actualizar(@PathVariable Long id, @Valid @RequestBody CanchaDTO dto) {
+    public ResponseEntity<CanchaDTO> actualizar(@PathVariable Long id, @Valid @RequestBody CanchaDTO dto) {
         return new ResponseEntity<>(service.actualizar(id, dto), HttpStatus.OK);
     }
 

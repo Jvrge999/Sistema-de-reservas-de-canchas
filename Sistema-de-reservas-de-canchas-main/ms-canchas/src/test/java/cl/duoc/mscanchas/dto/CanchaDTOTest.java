@@ -9,15 +9,15 @@ class CanchaDTOTest {
     void testDTOGettersYSetters() {
         CanchaDTO dto = new CanchaDTO();
         dto.setId(1L);
-        dto.setNombre("Cancha Central");
+        dto.setNombre("Cancha Principal");
         dto.setTipoPasto("Sintetico");
         dto.setCapacidad(14);
-        dto.setPrecioHora(15000);
+        dto.setPrecioHora(15000.0); 
 
         assertEquals(1L, dto.getId());
-        assertEquals("Cancha Central", dto.getNombre());
+        assertEquals("Cancha Principal", dto.getNombre());
         assertEquals("Sintetico", dto.getTipoPasto());
         assertEquals(14, dto.getCapacidad());
-        assertEquals(15000, dto.getPrecioHora());
+        assertEquals(15000.0, dto.getPrecioHora());
     }
 }
