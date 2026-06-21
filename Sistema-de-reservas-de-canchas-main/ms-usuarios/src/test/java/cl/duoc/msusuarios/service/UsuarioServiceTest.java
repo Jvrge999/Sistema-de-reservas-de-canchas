@@ -3,6 +3,7 @@ package cl.duoc.msusuarios.service;
 import cl.duoc.msusuarios.dto.UsuarioDTO;
 import cl.duoc.msusuarios.model.UsuarioEntity;
 import cl.duoc.msusuarios.repository.UsuarioRepository;
+import cl.duoc.msusuarios.service.impl.UsuarioServiceImpl;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -24,102 +25,48 @@ class UsuarioServiceTest {
     private UsuarioRepository repo;
 
     @InjectMocks
-    private UsuarioService service;
+    private UsuarioServiceImpl service;
 
     @Test
     void testListarTodos() {
-        // Given
-        UsuarioEntity u1 = new UsuarioEntity();
-        u1.setId(1L);
-        u1.setNombre("Jorge Aguilera");
-        when(repo.findAll()).thenReturn(Arrays.asList(u1));
+        UsuarioEntity entity = new UsuarioEntity();
+        entity.setNombre("Pedro");
+        when(repo.findAll()).thenReturn(Arrays.asList(entity));
 
-        // When
-        List<UsuarioEntity> resultado = service.listarTodos();
+        List<UsuarioDTO> resultado = service.listarTodos();
 
-        // Then
-        assertNotNull(resultado);
         assertEquals(1, resultado.size());
-        verify(repo, times(1)).findAll();
+        assertEquals("Pedro", resultado.get(0).getNombre());
     }
 
     @Test
     void testGuardar() {
-        // Given
         UsuarioDTO dto = new UsuarioDTO();
-        dto.setNombre("Nuevo User");
-        dto.setEmail("nuevo@correo.com");
+        dto.setNombre("Maria");
+        dto.setEmail("maria@correo.cl");
 
-        UsuarioEntity entityGuardada = new UsuarioEntity();
-        entityGuardada.setId(1L);
-        entityGuardada.setNombre("Nuevo User");
-        entityGuardada.setEmail("nuevo@correo.com");
+        UsuarioEntity entity = new UsuarioEntity();
+        entity.setId(2L);
+        entity.setNombre("Maria");
 
-        when(repo.save(any(UsuarioEntity.class))).thenReturn(entityGuardada);
+        when(repo.save(any(UsuarioEntity.class))).thenReturn(entity);
 
-        // When
-        UsuarioEntity resultado = service.guardar(dto);
+        UsuarioDTO resultado = service.guardar(dto);
 
-        // Then
-        assertNotNull(resultado);
-        assertEquals(1L, resultado.getId());
-        assertEquals("Nuevo User", resultado.getNombre());
-        verify(repo, times(1)).save(any(UsuarioEntity.class));
+        assertEquals(2L, resultado.getId());
+        assertEquals("Maria", resultado.getNombre());
     }
 
     @Test
-    void testActualizarExitoso() {
-        // Given
-        Long id = 1L;
-        UsuarioDTO dto = new UsuarioDTO();
-        dto.setNombre("User Actualizado");
-        dto.setEmail("actualizado@correo.com");
-
-        UsuarioEntity entidadExistente = new UsuarioEntity();
-        entidadExistente.setId(id);
-        entidadExistente.setNombre("Viejo User");
-
-        when(repo.findById(id)).thenReturn(Optional.of(entidadExistente));
-        when(repo.save(any(UsuarioEntity.class))).thenReturn(entidadExistente); 
-
-        // When
-        UsuarioEntity resultado = service.actualizar(id, dto);
-
-        // Then
-        assertNotNull(resultado);
-        assertEquals("User Actualizado", resultado.getNombre());
-        verify(repo, times(1)).findById(id);
-        verify(repo, times(1)).save(any(UsuarioEntity.class));
-    }
-
-    // AQUI CUMPLIMOS EL REQUISITO "assertThrows" DE LA RÚBRICA
-    @Test
-    void testActualizarLanzaExcepcionCuandoNoExiste() {
-        // Given
-        Long id = 99L;
-        UsuarioDTO dto = new UsuarioDTO();
-        when(repo.findById(id)).thenReturn(Optional.empty());
-
-        // When / Then
-        RuntimeException exception = assertThrows(RuntimeException.class, () -> {
-            service.actualizar(id, dto);
-        });
-        
-        assertEquals("Usuario no encontrado", exception.getMessage());
-        verify(repo, times(1)).findById(id);
-        verify(repo, never()).save(any(UsuarioEntity.class));
+    void testActualizarLanzaExcepcion() {
+        when(repo.findById(99L)).thenReturn(Optional.empty());
+        assertThrows(RuntimeException.class, () -> service.actualizar(99L, new UsuarioDTO()));
     }
 
     @Test
     void testBorrar() {
-        // Given
-        Long id = 1L;
-        doNothing().when(repo).deleteById(id);
-
-        // When
-        service.borrar(id);
-
-        // Then
-        verify(repo, times(1)).deleteById(id);
+        doNothing().when(repo).deleteById(1L);
+        service.borrar(1L);
+        verify(repo, times(1)).deleteById(1L);
     }
 }

@@ -1,7 +1,6 @@
 package cl.duoc.msusuarios.controller;
 
 import cl.duoc.msusuarios.dto.UsuarioDTO;
-import cl.duoc.msusuarios.model.UsuarioEntity;
 import cl.duoc.msusuarios.service.UsuarioService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -23,10 +22,10 @@ public class UsuarioController {
     @Autowired
     private UsuarioService service;
 
-    @Operation(summary = "Listar todos los usuarios", description = "Retorna la lista completa de usuarios registrados.")
+    @Operation(summary = "Listar todos los usuarios")
     @ApiResponse(responseCode = "200", description = "Lista obtenida exitosamente")
     @GetMapping
-    public ResponseEntity<List<UsuarioEntity>> listar() {
+    public ResponseEntity<List<UsuarioDTO>> listar() {
         return new ResponseEntity<>(service.listarTodos(), HttpStatus.OK);
     }
 
@@ -36,7 +35,7 @@ public class UsuarioController {
         @ApiResponse(responseCode = "400", description = "Datos de entrada inválidos")
     })
     @PostMapping
-    public ResponseEntity<UsuarioEntity> guardar(@Valid @RequestBody UsuarioDTO dto) {
+    public ResponseEntity<UsuarioDTO> guardar(@Valid @RequestBody UsuarioDTO dto) {
         return new ResponseEntity<>(service.guardar(dto), HttpStatus.CREATED);
     }
 
@@ -46,13 +45,13 @@ public class UsuarioController {
         @ApiResponse(responseCode = "404", description = "Usuario no encontrado")
     })
     @PutMapping("/{id}")
-    public ResponseEntity<UsuarioEntity> actualizar(@PathVariable Long id, @Valid @RequestBody UsuarioDTO dto) {
+    public ResponseEntity<UsuarioDTO> actualizar(@PathVariable Long id, @Valid @RequestBody UsuarioDTO dto) {
         return new ResponseEntity<>(service.actualizar(id, dto), HttpStatus.OK);
     }
 
     @Operation(summary = "Eliminar usuario")
     @ApiResponses({
-        @ApiResponse(responseCode = "204", description = "Eliminación exitosa (Sin contenido)"),
+        @ApiResponse(responseCode = "204", description = "Eliminación exitosa"),
         @ApiResponse(responseCode = "404", description = "Usuario no encontrado")
     })
     @DeleteMapping("/{id}")
