@@ -1,48 +1,67 @@
 server:
   port: 8080
+
 spring:
   application:
     name: api-gateway
   cloud:
     gateway:
+      discovery:
+        locator:
+          enabled: true
+          lower-case-service-id: true
       routes:
         - id: ms-canchas
-          uri: http://ms-canchas:8081
+          uri: lb://ms-canchas
           predicates:
             - Path=/canchas/**
+            
         - id: ms-equipamiento
-          uri: http://ms-equipamiento:8082
+          uri: lb://ms-equipamiento
           predicates:
             - Path=/equipamiento/**
+            
         - id: ms-usuarios
-          uri: http://ms-usuarios:8083
+          uri: lb://ms-usuarios
           predicates:
             - Path=/usuarios/**
+            
         - id: ms-reservas
-          uri: http://ms-reservas:8084
+          uri: lb://ms-reservas
           predicates:
             - Path=/reservas/**
+            
         - id: ms-pagos
-          uri: http://ms-pagos:8085
+          uri: lb://ms-pagos
           predicates:
             - Path=/pagos/**
+            
         - id: ms-autenticacion
-          uri: http://ms-autenticacion:8086
+          uri: lb://ms-autenticacion
           predicates:
             - Path=/auth/**
+            
         - id: ms-notificaciones
-          uri: http://ms-notificaciones:8087
+          uri: lb://ms-notificaciones
           predicates:
             - Path=/notificaciones/**
+            
         - id: ms-fairplay
-          uri: http://ms-fairplay:8088
+          uri: lb://ms-fairplay
           predicates:
             - Path=/fairplay/**
+            
         - id: ms-resenas
-          uri: http://ms-resenas:8089
+          uri: lb://ms-resenas
           predicates:
             - Path=/resenas/**
+            
         - id: ms-reportes
-          uri: http://ms-reportes:8090
+          uri: lb://ms-reportes
           predicates:
             - Path=/reportes/**
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka/
