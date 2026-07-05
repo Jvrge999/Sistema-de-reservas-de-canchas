@@ -1,4 +1,5 @@
 package cl.duoc.msequipamiento.service;
+
 import cl.duoc.msequipamiento.dto.EquipamientoDTO;
 import java.util.List;
 

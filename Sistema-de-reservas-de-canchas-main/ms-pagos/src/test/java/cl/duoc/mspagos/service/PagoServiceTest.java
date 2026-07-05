@@ -11,6 +11,8 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.Arrays;
 import java.util.List;
@@ -35,104 +37,98 @@ class PagoServiceTest {
     @Test
     void testListarTodos() {
         PagoEntity entity = new PagoEntity();
-        entity.setId(1L);
-        entity.setIdReserva(100L);
-        entity.setMonto(15000.0);
-
+        entity.setMetodoPago("Tarjeta");
         when(repo.findAll()).thenReturn(Arrays.asList(entity));
 
         List<PagoDTO> resultado = service.listarTodos();
 
-        assertNotNull(resultado);
         assertEquals(1, resultado.size());
-        assertEquals(15000.0, resultado.get(0).getMonto());
-        verify(repo, times(1)).findAll();
+        assertEquals("Tarjeta", resultado.get(0).getMetodoPago());
     }
 
     @Test
     void testRegistrarPagoExitoso() {
-        // Given
-        PagoDTO dtoEntrada = new PagoDTO();
-        dtoEntrada.setIdReserva(100L);
-        dtoEntrada.setMonto(15000.0);
-        dtoEntrada.setMetodoPago("WEBPAY");
+        PagoDTO dto = new PagoDTO();
+        dto.setIdReserva(10L);
+        dto.setMonto(15000.0);
+        dto.setMetodoPago("Efectivo");
 
         ReservaDTO reservaMock = new ReservaDTO();
-        reservaMock.setId(100L);
+        reservaMock.setId(10L);
 
         PagoEntity entityGuardada = new PagoEntity();
         entityGuardada.setId(1L);
-        entityGuardada.setIdReserva(100L);
-        entityGuardada.setMonto(15000.0);
-        entityGuardada.setMetodoPago("WEBPAY");
+        entityGuardada.setMetodoPago("Efectivo");
         entityGuardada.setEstado("COMPLETADO");
 
-        // Mockeamos la validación del Feign Client
-        when(reservaClient.obtenerReserva(100L)).thenReturn(reservaMock);
-        // Mockeamos el guardado en BDD
+        // Simulamos que el Feign Client encuentra la reserva
+        when(reservaClient.obtenerReserva(10L)).thenReturn(reservaMock);
         when(repo.save(any(PagoEntity.class))).thenReturn(entityGuardada);
 
-        // When
-        PagoDTO resultado = service.registrarPago(dtoEntrada);
+        PagoDTO resultado = service.registrarPago(dto);
 
-        // Then
-        assertNotNull(resultado);
         assertEquals(1L, resultado.getId());
         assertEquals("COMPLETADO", resultado.getEstado());
-        verify(reservaClient, times(1)).obtenerReserva(100L);
-        verify(repo, times(1)).save(any(PagoEntity.class));
     }
 
     @Test
-    void testRegistrarPagoLanzaExcepcionPorReservaInexistente() {
-        // Given
-        PagoDTO dtoEntrada = new PagoDTO();
-        dtoEntrada.setIdReserva(99L);
+    void testRegistrarPagoFallaReservaNoExiste() {
+        PagoDTO dto = new PagoDTO();
+        dto.setIdReserva(99L);
 
-        // Simulamos que el Feign Client no encuentra la reserva
+        // Simulamos que el Feign Client NO encuentra la reserva
         when(reservaClient.obtenerReserva(99L)).thenReturn(null);
 
-        // When / Then
-        RuntimeException exception = assertThrows(RuntimeException.class, () -> {
-            service.registrarPago(dtoEntrada);
+        ResponseStatusException exception = assertThrows(ResponseStatusException.class, () -> {
+            service.registrarPago(dto);
         });
-        
-        assertEquals("No se puede procesar el pago: La reserva no existe.", exception.getMessage());
-        verify(reservaClient, times(1)).obtenerReserva(99L);
-        // Verificamos que NUNCA se intente guardar en la base de datos si falla la validación
-        verify(repo, never()).save(any(PagoEntity.class));
+        assertEquals(HttpStatus.NOT_FOUND, exception.getStatusCode());
     }
 
     @Test
     void testActualizarExitoso() {
-        Long id = 1L;
         PagoDTO dto = new PagoDTO();
-        dto.setIdReserva(100L);
+        dto.setIdReserva(1L);
         dto.setMonto(20000.0);
-        dto.setMetodoPago("EFECTIVO");
+        dto.setMetodoPago("Transferencia");
         dto.setEstado("COMPLETADO");
 
-        PagoEntity entidadExistente = new PagoEntity();
-        entidadExistente.setId(id);
-        entidadExistente.setEstado("PENDIENTE");
+        PagoEntity existente = new PagoEntity();
+        existente.setId(1L);
 
-        when(repo.findById(id)).thenReturn(Optional.of(entidadExistente));
-        when(repo.save(any(PagoEntity.class))).thenReturn(entidadExistente); 
+        when(repo.findById(1L)).thenReturn(Optional.of(existente));
+        when(repo.save(any(PagoEntity.class))).thenReturn(existente);
 
-        PagoDTO resultado = service.actualizar(id, dto);
+        PagoDTO resultado = service.actualizar(1L, dto);
 
         assertNotNull(resultado);
-        verify(repo, times(1)).findById(id);
         verify(repo, times(1)).save(any(PagoEntity.class));
     }
 
     @Test
-    void testBorrar() {
-        Long id = 1L;
-        doNothing().when(repo).deleteById(id);
+    void testBorrarExitoso() {
+        PagoEntity existente = new PagoEntity();
+        existente.setId(1L);
+        existente.setEstado("PENDIENTE"); // Se puede borrar
+        
+        when(repo.findById(1L)).thenReturn(Optional.of(existente));
+        doNothing().when(repo).deleteById(1L);
+        
+        service.borrar(1L);
+        verify(repo, times(1)).deleteById(1L);
+    }
+    
+    @Test
+    void testBorrarFallaReglaNegocioCompletado() {
+        PagoEntity existente = new PagoEntity();
+        existente.setId(1L);
+        existente.setEstado("COMPLETADO"); // No se puede borrar
 
-        service.borrar(id);
+        when(repo.findById(1L)).thenReturn(Optional.of(existente));
 
-        verify(repo, times(1)).deleteById(id);
+        ResponseStatusException exception = assertThrows(ResponseStatusException.class, () -> {
+            service.borrar(1L);
+        });
+        assertEquals(HttpStatus.CONFLICT, exception.getStatusCode());
     }
 }

@@ -13,6 +13,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import java.util.Arrays;
 
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
@@ -45,10 +46,16 @@ class EquipamientoControllerTest {
     void testGuardarEquipamientoRetorna200() throws Exception {
         EquipamientoDTO inputDto = new EquipamientoDTO();
         inputDto.setNombre("Raqueta");
+        inputDto.setTipo("Tenis");
+        inputDto.setPrecioArriendo(1000.0);
+        inputDto.setDisponible(true);
 
         EquipamientoDTO outputDto = new EquipamientoDTO();
         outputDto.setId(1L);
         outputDto.setNombre("Raqueta");
+        outputDto.setTipo("Tenis");
+        outputDto.setPrecioArriendo(1000.0);
+        outputDto.setDisponible(true);
 
         when(service.guardar(any(EquipamientoDTO.class))).thenReturn(outputDto);
 
@@ -57,6 +64,45 @@ class EquipamientoControllerTest {
                 .content(objectMapper.writeValueAsString(inputDto)))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.id").value(1L));
+    }
+
+    @Test
+    void testGuardarEquipamientoFallaPorValidacionRetorna400() throws Exception {
+        EquipamientoDTO inputDto = new EquipamientoDTO();
+        // Nombre vacío y precio negativo para forzar error de @Valid
+        inputDto.setNombre(""); 
+        inputDto.setTipo("Tenis");
+        inputDto.setPrecioArriendo(-500.0); 
+        inputDto.setDisponible(true);
+
+        mockMvc.perform(post("/equipamiento")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(objectMapper.writeValueAsString(inputDto)))
+                .andExpect(status().isBadRequest());
+    }
+
+    @Test
+    void testActualizarEquipamientoRetorna200() throws Exception {
+        EquipamientoDTO inputDto = new EquipamientoDTO();
+        inputDto.setNombre("Mancuernas");
+        inputDto.setTipo("Pesas");
+        inputDto.setPrecioArriendo(2000.0);
+        inputDto.setDisponible(true);
+
+        when(service.guardar(any(EquipamientoDTO.class))).thenReturn(inputDto);
+
+        mockMvc.perform(put("/equipamiento/1")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(objectMapper.writeValueAsString(inputDto)))
+                .andExpect(status().isOk());
+    }
+
+    @Test
+    void testEliminarEquipamientoRetorna200() throws Exception {
+        doNothing().when(service).eliminar(1L);
+
+        mockMvc.perform(delete("/equipamiento/1"))
+                .andExpect(status().isOk());
     }
 
     @Test

@@ -13,6 +13,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import java.util.Arrays;
 
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
@@ -46,7 +47,7 @@ class CanchaControllerTest {
     void testGuardarCanchaRetorna201() throws Exception {
         CanchaDTO inputDto = new CanchaDTO();
         inputDto.setNombre("Cancha VIP");
-        inputDto.setTipoPasto("Sintetico");
+        inputDto.setTipoPasto("Sintético");
         inputDto.setCapacidad(14);
         inputDto.setPrecioHora(25000.0);
 
@@ -61,6 +62,36 @@ class CanchaControllerTest {
                 .content(objectMapper.writeValueAsString(inputDto)))
                 .andExpect(status().isCreated())
                 .andExpect(jsonPath("$.id").value(10L));
+    }
+
+    @Test
+    void testGuardarCanchaFallaPorValidacionRetorna400() throws Exception {
+        CanchaDTO inputDto = new CanchaDTO();
+        inputDto.setNombre(""); // Falla NotBlank
+        inputDto.setTipoPasto(""); // Falla NotBlank
+        inputDto.setCapacidad(0); // Falla Min (debe ser >= 1)
+        inputDto.setPrecioHora(-5000.0); // Falla Min (no negativo)
+
+        mockMvc.perform(post("/canchas")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(objectMapper.writeValueAsString(inputDto)))
+                .andExpect(status().isBadRequest());
+    }
+
+    @Test
+    void testActualizarCanchaRetorna200() throws Exception {
+        CanchaDTO inputDto = new CanchaDTO();
+        inputDto.setNombre("Cancha Norte Modificada");
+        inputDto.setTipoPasto("Natural");
+        inputDto.setCapacidad(22);
+        inputDto.setPrecioHora(30000.0);
+
+        when(service.actualizar(eq(1L), any(CanchaDTO.class))).thenReturn(inputDto);
+
+        mockMvc.perform(put("/canchas/1")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(objectMapper.writeValueAsString(inputDto)))
+                .andExpect(status().isOk());
     }
 
     @Test

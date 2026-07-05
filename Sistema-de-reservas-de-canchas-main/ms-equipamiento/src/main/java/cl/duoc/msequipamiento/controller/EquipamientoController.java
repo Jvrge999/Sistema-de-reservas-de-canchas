@@ -6,8 +6,10 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
 import java.util.List;
 
 @RestController
@@ -28,20 +30,20 @@ public class EquipamientoController {
     @Operation(summary = "Registrar nuevo equipamiento")
     @ApiResponses({
         @ApiResponse(responseCode = "200", description = "Equipamiento creado exitosamente"),
-    @ApiResponse(responseCode = "400", description = "Datos de entrada invalidos")
+        @ApiResponse(responseCode = "400", description = "Datos de entrada invalidos")
     })
     @PostMapping
-    public EquipamientoDTO guardar(@RequestBody EquipamientoDTO dto) {
+    public EquipamientoDTO guardar(@Valid @RequestBody EquipamientoDTO dto) {
         return service.guardar(dto);
     }
 
     @Operation(summary = "Actualizar equipamiento existente")
-        @ApiResponses({
-            @ApiResponse(responseCode = "200", description = "Actualización exitosa"),
-            @ApiResponse(responseCode = "404", description = "Equipamiento no encontrado")
-        })
+    @ApiResponses({
+        @ApiResponse(responseCode = "200", description = "Actualización exitosa"),
+        @ApiResponse(responseCode = "404", description = "Equipamiento no encontrado")
+    })
     @PutMapping("/{id}")
-    public EquipamientoDTO actualizar(@PathVariable Long id, @RequestBody EquipamientoDTO dto) {
+    public EquipamientoDTO actualizar(@PathVariable Long id, @Valid @RequestBody EquipamientoDTO dto) {
         dto.setId(id);
         return service.guardar(dto);
     }

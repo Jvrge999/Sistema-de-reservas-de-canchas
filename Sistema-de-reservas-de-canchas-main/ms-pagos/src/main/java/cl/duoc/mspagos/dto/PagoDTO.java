@@ -3,7 +3,9 @@ package cl.duoc.mspagos.dto;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import lombok.Data;
 
+@Data
 public class PagoDTO {
 
     private Long id;
@@ -20,15 +22,4 @@ public class PagoDTO {
 
     @NotBlank(message = "El estado del pago es obligatorio")
     private String estado;
-
-    public Long getId() { return id; }
-    public void setId(Long id) { this.id = id; }
-    public Long getIdReserva() { return idReserva; }
-    public void setIdReserva(Long idReserva) { this.idReserva = idReserva; }
-    public Double getMonto() { return monto; }
-    public void setMonto(Double monto) { this.monto = monto; }
-    public String getMetodoPago() { return metodoPago; }
-    public void setMetodoPago(String metodoPago) { this.metodoPago = metodoPago; }
-    public String getEstado() { return estado; }
-    public void setEstado(String estado) { this.estado = estado; }
 }

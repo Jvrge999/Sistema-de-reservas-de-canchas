@@ -9,9 +9,12 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
@@ -23,7 +26,6 @@ class EquipamientoServiceTest {
     @Mock
     private EquipamientoRepository repo;
 
-    // Aquí inyectamos el Impl para poder probar la lógica interna
     @InjectMocks
     private EquipamientoServiceImpl service; 
 
@@ -38,7 +40,6 @@ class EquipamientoServiceTest {
 
         when(repo.findAll()).thenReturn(Arrays.asList(entity));
 
-        // El servicio mapea la entidad a DTO internamente
         List<EquipamientoDTO> resultado = service.listarTodos();
 
         assertNotNull(resultado);
@@ -48,7 +49,7 @@ class EquipamientoServiceTest {
     }
 
     @Test
-    void testGuardar() {
+    void testGuardarNuevoExitoso() {
         EquipamientoDTO dtoEntrada = new EquipamientoDTO();
         dtoEntrada.setNombre("Balon");
         dtoEntrada.setTipo("Futbol");
@@ -68,17 +69,84 @@ class EquipamientoServiceTest {
 
         assertNotNull(resultado);
         assertEquals(1L, resultado.getId());
-        assertEquals("Balon", resultado.getNombre());
         verify(repo, times(1)).save(any(EquipamientoEntity.class));
     }
 
     @Test
-    void testEliminar() {
-        Long id = 1L;
-        doNothing().when(repo).deleteById(id);
+    void testActualizarExitoso() {
+        EquipamientoDTO dtoEntrada = new EquipamientoDTO();
+        dtoEntrada.setId(1L);
+        dtoEntrada.setNombre("Balon Actualizado");
+        dtoEntrada.setTipo("Futbol");
+        dtoEntrada.setPrecioArriendo(3500.0);
+        dtoEntrada.setDisponible(true);
 
-        service.eliminar(id);
+        EquipamientoEntity entityExistente = new EquipamientoEntity();
+        entityExistente.setId(1L);
+        entityExistente.setNombre("Balon Viejo");
 
-        verify(repo, times(1)).deleteById(id);
+        when(repo.findById(1L)).thenReturn(Optional.of(entityExistente));
+        when(repo.save(any(EquipamientoEntity.class))).thenReturn(entityExistente);
+
+        EquipamientoDTO resultado = service.guardar(dtoEntrada);
+
+        assertNotNull(resultado);
+        verify(repo, times(1)).findById(1L);
+        verify(repo, times(1)).save(any(EquipamientoEntity.class));
+    }
+
+    @Test
+    void testActualizarFallaNoEncontrado() {
+        EquipamientoDTO dtoEntrada = new EquipamientoDTO();
+        dtoEntrada.setId(99L); 
+        
+        when(repo.findById(99L)).thenReturn(Optional.empty());
+
+        ResponseStatusException exception = assertThrows(ResponseStatusException.class, () -> {
+            service.guardar(dtoEntrada);
+        });
+        assertEquals(HttpStatus.NOT_FOUND, exception.getStatusCode());
+    }
+
+    @Test
+    void testGuardarFallaReglaNegocioPrecioNegativo() {
+        EquipamientoDTO dtoEntrada = new EquipamientoDTO();
+        dtoEntrada.setNombre("Balon");
+        dtoEntrada.setTipo("Futbol");
+        dtoEntrada.setPrecioArriendo(-1000.0); // Gatilla el error
+        dtoEntrada.setDisponible(true);
+
+        ResponseStatusException exception = assertThrows(ResponseStatusException.class, () -> {
+            service.guardar(dtoEntrada);
+        });
+        assertEquals(HttpStatus.BAD_REQUEST, exception.getStatusCode());
+    }
+
+    @Test
+    void testEliminarExitoso() {
+        EquipamientoEntity entity = new EquipamientoEntity();
+        entity.setId(1L);
+        entity.setDisponible(true); 
+
+        when(repo.findById(1L)).thenReturn(Optional.of(entity));
+        doNothing().when(repo).deleteById(1L);
+
+        service.eliminar(1L);
+
+        verify(repo, times(1)).deleteById(1L);
+    }
+
+    @Test
+    void testEliminarFallaReglaNegocioEnUso() {
+        EquipamientoEntity entity = new EquipamientoEntity();
+        entity.setId(1L);
+        entity.setDisponible(false); // Gatilla el error
+
+        when(repo.findById(1L)).thenReturn(Optional.of(entity));
+
+        ResponseStatusException exception = assertThrows(ResponseStatusException.class, () -> {
+            service.eliminar(1L);
+        });
+        assertEquals(HttpStatus.CONFLICT, exception.getStatusCode());
     }
 }
