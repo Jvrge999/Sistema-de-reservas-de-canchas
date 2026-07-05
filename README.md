@@ -1,19 +1,25 @@
 # Sistema de Reservas de Canchas - Backend
+
 Proyecto final desarrollado con arquitectura de microservicios para la gestión de complejos deportivos.
 
-# Link Video Demo Postman
-https://youtu.be/4-V0iJpFha8
+**Link Video Demo Postman (Evaluación Parcial 2):** [https://youtu.be/4-V0iJpFha8](https://youtu.be/4-V0iJpFha8)
 
-## Stack Tecnológico
-- **Java 21** & **Spring Boot 3.2.5**
-- **Arquitectura:** 10 Microservicios independientes.
-- **Comunicación:** Spring Cloud OpenFeign & API Gateway (Puerto 8080).
-- **Persistencia:** Bases de Datos MySQL independientes (Docker).
+## Novedades de la Fase Actual (Evaluación 3)
+En esta etapa, el ecosistema se ha robustecido implementando Service Discovery, Enrutamiento Centralizado, Pruebas Unitarias y Documentación interactiva de APIs, garantizando alta disponibilidad y calidad de código.
+
+## Stack Tecnológico y Prácticas Aplicadas
+- **Backend:** Java 21 & Spring Boot 3.2.5
+- **Arquitectura Cloud:** Spring Cloud (API Gateway, Netflix Eureka Server).
+- **Comunicación:** Spring Cloud OpenFeign & API Gateway.
+- **Persistencia:** Spring Data JPA, Bases de Datos MySQL independientes (Docker) / H2 (Entorno de pruebas).
+- **Testing:** JUnit 5, Mockito, Spring Boot Test (Cobertura de Controllers, Services, Repositories y Models).
+- **Documentación:** OpenAPI 3.0 / Swagger UI.
 
 ## Puertos y Servicios
 | Microservicio | Puerto | Función Principal |
 | :--- | :--- | :--- |
-| **api-gateway** | 8080 | Enrutamiento centralizado. |
+| **eureka-server** | 8761 | Servidor de descubrimiento de servicios. |
+| **api-gateway** | 8080 | Enrutamiento centralizado y balanceo. |
 | **ms-canchas** | 8081 | Gestión de canchas y tipos. |
 | **ms-equipamiento**| 8082 | Arriendo de implementos. |
 | **ms-usuarios** | 8083 | Gestión de perfiles. |
@@ -25,6 +31,6 @@ https://youtu.be/4-V0iJpFha8
 | **ms-resenas** | 8089 | Feedback post-partido. |
 | **ms-reportes** | 8090 | Análisis estadístico. |
 
-## Instalación
+## Instalación y Despliegue
 ```bash
 docker compose up -d --build
