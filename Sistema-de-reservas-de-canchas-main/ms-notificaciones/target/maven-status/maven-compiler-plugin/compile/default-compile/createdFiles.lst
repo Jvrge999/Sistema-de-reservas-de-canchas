@@ -1,7 +1,7 @@
-cl/duoc/msnotificaciones/model/NotificacionEntity.class
-cl/duoc/msnotificaciones/service/impl/NotificacionServiceImpl.class
-cl/duoc/msnotificaciones/MsNotificacionesApplication.class
-cl/duoc/msnotificaciones/service/NotificacionService.class
-cl/duoc/msnotificaciones/dto/NotificacionDTO.class
-cl/duoc/msnotificaciones/repository/NotificacionRepository.class
-cl/duoc/msnotificaciones/controller/NotificacionController.class
+cl\duoc\msnotificaciones\repository\NotificacionRepository.class
+cl\duoc\msnotificaciones\dto\NotificacionDTO.class
+cl\duoc\msnotificaciones\model\NotificacionEntity.class
+cl\duoc\msnotificaciones\controller\NotificacionController.class
+cl\duoc\msnotificaciones\service\NotificacionService.class
+cl\duoc\msnotificaciones\MsNotificacionesApplication.class
+cl\duoc\msnotificaciones\service\impl\NotificacionServiceImpl.class

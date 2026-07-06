@@ -23,6 +23,12 @@ services:
   ms-resenas: { build: ./ms-resenas, container_name: ms-resenas, ports: ["8089:8089"], networks: [backend-net], depends_on: [db-resenas] }
   ms-reportes: { build: ./ms-reportes, container_name: ms-reportes, ports: ["8090:8090"], networks: [backend-net], depends_on: [db-reportes] }
 
+  
+  eureka-server:
+    build: ./eureka-server
+    container_name: eureka-server
+    ports: ["8761:8761"]
+    networks: [backend-net]
   api-gateway:
     build: ./api-gateway
     container_name: api-gateway
