@@ -25,10 +25,7 @@ public class CanchaServiceImpl implements CanchaService {
 
     @Override
     public CanchaDTO guardar(CanchaDTO dto) {
-        // Regla de Negocio: Para formatos de fútbol 7 (14 jugadores), los partidos regionales exigen que el pasto sea Sintético.
-        if (dto.getCapacidad() == 14 && !"Sintético".equalsIgnoreCase(dto.getTipoPasto())) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Regla de Negocio: Las canchas con capacidad para 14 personas (Fútbol 7) deben ser de pasto Sintético para cumplir con el estándar regional.");
-        }
+        validarReglaNegocio(dto);
 
         CanchaEntity entity = new CanchaEntity();
         entity.setNombre(dto.getNombre());
@@ -45,9 +42,7 @@ public class CanchaServiceImpl implements CanchaService {
         CanchaEntity entity = repo.findById(id)
             .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Error: Cancha no encontrada para actualizar"));
 
-        if (dto.getCapacidad() == 14 && !"Sintético".equalsIgnoreCase(dto.getTipoPasto())) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Regla de Negocio: Las canchas con capacidad para 14 personas (Fútbol 7) deben ser de pasto Sintético para cumplir con el estándar regional.");
-        }
+        validarReglaNegocio(dto);
 
         entity.setNombre(dto.getNombre());
         entity.setTipoPasto(dto.getTipoPasto());
@@ -64,6 +59,14 @@ public class CanchaServiceImpl implements CanchaService {
             .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Error: Cancha no encontrada para eliminar"));
             
         repo.deleteById(id);
+    }
+
+    // Centralizamos la validación para que sea limpia y acepte con o sin tilde
+    private void validarReglaNegocio(CanchaDTO dto) {
+        String pasto = dto.getTipoPasto();
+        if (dto.getCapacidad() == 14 && !("Sintetico".equalsIgnoreCase(pasto) || "Sintético".equalsIgnoreCase(pasto))) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Regla de Negocio: Las canchas con capacidad para 14 personas (Fútbol 7) deben ser de pasto Sintético para cumplir con el estándar regional.");
+        }
     }
 
     private CanchaDTO convertirADTO(CanchaEntity entity) {
