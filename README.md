@@ -2,6 +2,10 @@
 
 Proyecto final desarrollado con arquitectura de microservicios para la gestión de complejos deportivos.
 
+**Integrantes del Equipo:**
+- Jorge Aguilera
+- [Nombre de tu compañero/a]
+
 **Link Video Demo Postman (Evaluación Parcial 2):** [https://youtu.be/4-V0iJpFha8](https://youtu.be/4-V0iJpFha8)
 
 ## Novedades de la Fase Actual (Evaluación 3)
@@ -31,6 +35,23 @@ En esta etapa, el ecosistema se ha robustecido implementando Service Discovery, 
 | **ms-resenas** | 8089 | Feedback post-partido. |
 | **ms-reportes** | 8090 | Análisis estadístico. |
 
+## Rutas Principales (API Gateway)
+Todo el tráfico externo es centralizado a través del API Gateway en el puerto `8080`.
+- **Usuarios:** `http://localhost:8080/usuarios`
+- **Canchas:** `http://localhost:8080/canchas`
+- **Reservas:** `http://localhost:8080/reservas`
+- **Pagos:** `http://localhost:8080/pagos`
+- **Equipamiento:** `http://localhost:8080/equipamientos`
+
+## Documentación Swagger (OpenAPI)
+Las especificaciones y pruebas de los microservicios principales están disponibles en las siguientes rutas (requiere tener el ecosistema levantado):
+- **Usuarios:** `http://localhost:8083/doc/swagger-ui.html`
+- **Canchas:** `http://localhost:8081/doc/swagger-ui.html`
+- **Reservas:** `http://localhost:8084/doc/swagger-ui.html`
+- **Pagos:** `http://localhost:8085/doc/swagger-ui.html`
+- **Equipamiento:** `http://localhost:8082/doc/swagger-ui.html`
+
 ## Instalación y Despliegue
+Para desplegar todo el ecosistema, asegúrese de tener Docker abierto y ejecute en la raíz del proyecto:
 ```bash
 docker compose up -d --build
