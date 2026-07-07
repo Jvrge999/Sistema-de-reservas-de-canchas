@@ -4,7 +4,6 @@ Proyecto final desarrollado con arquitectura de microservicios para la gestión 
 
 **Integrantes del Equipo:**
 - Jorge Aguilera
-- [Nombre de tu compañero/a]
 
 **Link Video Demo Postman (Evaluación Parcial 2):** [https://youtu.be/4-V0iJpFha8](https://youtu.be/4-V0iJpFha8)
 
